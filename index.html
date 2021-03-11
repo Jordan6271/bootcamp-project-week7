@@ -10,12 +10,16 @@
         <title>Caesar Cipher</title> 
     </head>
     <body>
-        <div>
-            <input placeholder='Code to encrypt:' id='code'>
-            <input placeholder="Encryption key:" id="key">
+        <div id="input-area" class="d-block">
+            <input type="text" class="input" id="code" placeholder="Input code:">
+            <input type="text" class="input" id="key" placeholder="Encryption key:">
+            <button onclick="encrypt()">Encrypt</button>
+            <button onclick="decrypt()">Decrypt</button>
         </div>
-        <button onclick="encrypt()">Encrypt</button>
-        <div id="result"></div>
+        <div id="results-area" class="d-none">
+            <div id="results"></div>
+            <button onclick="retry()">Try another code</button>
+        </div>
         <!-- My JavaScript-->
         <script src="scripts/index.js"></script>
     </body>
