@@ -39,3 +39,10 @@ function letterChange(letter, key) {
     newLetter = String.fromCharCode(encryptedLetter);
     return newLetter
 }
+
+function retry() {
+    document.getElementById(`code`).value = ``;
+    document.getElementById(`key`).value = ``;
+    document.getElementById(`results-area`).className = document.getElementById(`input-area`).className.replace(/\bd-block\b/g, `d-none`);
+    document.getElementById(`input-area`).className = document.getElementById(`input-area`).className.replace(/\bd-none\b/g, `d-block`);
+}
