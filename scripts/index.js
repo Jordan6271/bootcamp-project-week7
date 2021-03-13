@@ -12,22 +12,27 @@ function encrypt() {
         alert(`You haven't entered anything, what do you expect me to do here?`);
     } else if (key.match(/\b.*?[^0-9].*\b/g)) {
         alert(`A key cannot include non-numerical digits.`);
+    } else if (key >= 100000) {
+        alert(`The maximum value for the key is 99999.`);
     } else {
-        for (let i = 0; i < code.length; i++){
+        for (let i = 0; i < code.length; i++) {
                 let ascii = code[i].charCodeAt();
-                if (ascii[i] >= 33 && ascii[i] <= 126) {
-                    if ((Number(ascii) + Number(key)) <= 126) {   
+                key = document.getElementById(`key`).value;
+                if (Number(ascii) >= 33 && Number(ascii) <= 126) {
+                    if ((Number(ascii) + Number(key)) <= 126) {
+                        encryptedMessage += String.fromCharCode(Number(ascii) + Number(key));
                     } else {
+                        let newKey = key;
+                        console.log(`The key initially was ${key}`)
                         for (j = 0; j < key; j++) {
-                            key -= 94;
-                            console.log(`The key is currently ${key}`);
-                            if (key <= 0) {
+                            if (Number(ascii) + Number(newKey) <= 126) {
+                                encryptedMessage += String.fromCharCode(Number(ascii) + Number(newKey));
                                 break;
                             }
+                            newKey -= 94;
+                            console.log(`The new key is ${newKey}`)
                         }
                     }
-                    encryptedMessage += String.fromCharCode(Number(ascii) + Number(key));
-                    console.log(`Before symbol: ${code[i]}, before ascii value: ${ascii[i]}. It was shifted by: ${key}. After symbol: ${encryptedMessage[i]}, after ascii value: ${encryptedMessage[i].charCodeAt()}`);
                 } else {
                     encryptedMessage += code[i];
                 }      
@@ -52,23 +57,21 @@ function decrypt() {
         alert(`You haven't entered anything, what do you expect me to do here?`);
     } else if (key.match(/\b.*?[^0-9].*\b/g)) {
         alert(`A key cannot include non-numerical digits.`);
+    } else if (key >= 100000) {
+        alert(`The maximum value for the key is 99999.`);
     } else {
         for (let i = 0; i < code.length; i++){
             let ascii = code[i].charCodeAt();
+            key = document.getElementById(`key`).value;
             if (ascii >= 33 && ascii <= 126) {
                 if ((Number(ascii) - Number(key)) >= 33) {
                 } else {
-                    console.log(`Before the loop, the key is ${key}`)
                     for (j = 0; j < key; j++) {
-                        key -= 94;
-                        console.log(`After the loop, the key is ${key}`)
-                        if (key <= 94) {
+                        if (Number(ascii) - Number(key) >= 33) {
                             break;
                         }
+                        key -= 94; 
                     }
-                    console.log(`Before symbol: ${code[i]}, before ascii value: ${ascii}`)
-                    console.log(`Shifted by: ${key}`);
-                    console.log(`After symbol: ${decryptedMessage}, after ascii value: ${decryptedMessage.charCodeAt()}`)
                 }
                 decryptedMessage += String.fromCharCode(Number(ascii) - Number(key));
             } else {
