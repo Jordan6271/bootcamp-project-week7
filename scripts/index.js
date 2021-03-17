@@ -25,7 +25,7 @@ function encrypt() {
                         let newKey = key;
                         for (j = 0; j < key; j++) {
                             if (Number(ascii) + Number(newKey) <= 126) {
-                                encryptedMessage += String.fromCharCode(Number(ascii) + Number(newKey));
+                                encryptedMessage += String.fromCharCode(Number(ascii) - Number(newKey));
                                 break;
                             }
                             newKey -= 94;
