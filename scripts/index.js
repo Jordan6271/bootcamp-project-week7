@@ -25,7 +25,7 @@ function encrypt() {
                         let newKey = key;
                         for (j = 0; j < key; j++) {
                             if (Number(ascii) + Number(newKey) <= 126) {
-                                encryptedMessage += String.fromCharCode(Number(ascii) - Number(newKey));
+                                encryptedMessage += String.fromCharCode(Number(ascii) + Number(newKey));
                                 break;
                             }
                             newKey -= 94;
@@ -63,12 +63,12 @@ function decrypt() {
             key = document.getElementById(`key`).value;
             if (ascii >= 33 && ascii <= 126) {
                 if ((Number(ascii) + Number(key)) <= 126) {
-                    decryptedMessage += String.fromCharCode(Number(ascii) + Number(key));
+                    decryptedMessage += String.fromCharCode(Number(ascii) - Number(key));
                 } else {
                     let newKey = key;
                     for (j = 0; j < key; j++) {
                         if (Number(ascii) + Number(newKey) <= 126) {
-                            decryptedMessage += String.fromCharCode(Number(ascii) + Number(newKey));
+                            decryptedMessage += String.fromCharCode(Number(ascii) - Number(newKey));
                             break;
                         }
                         newKey -= 94;
