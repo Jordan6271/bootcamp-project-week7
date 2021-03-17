@@ -24,11 +24,11 @@ function encrypt() {
                     } else {
                         let newKey = key;
                         for (j = 0; j < key; j++) {
+                            newKey -= 94;
                             if (Number(ascii) + Number(newKey) <= 126) {
                                 encryptedMessage += String.fromCharCode(Number(ascii) + Number(newKey));
                                 break;
                             }
-                            newKey -= 94;
                         }
                     }
                 } else {
@@ -62,16 +62,16 @@ function decrypt() {
             let ascii = code[i].charCodeAt();
             key = document.getElementById(`key`).value;
             if (ascii >= 33 && ascii <= 126) {
-                if ((Number(ascii) + Number(key)) <= 126) {
+                if ((Number(ascii) - Number(key)) >= 33) {
                     decryptedMessage += String.fromCharCode(Number(ascii) - Number(key));
                 } else {
                     let newKey = key;
                     for (j = 0; j < key; j++) {
-                        if (Number(ascii) + Number(newKey) <= 126) {
+                        newKey -= 94;
+                        if ((Number(ascii) - Number(newKey)) >= 33) {
                             decryptedMessage += String.fromCharCode(Number(ascii) - Number(newKey));
                             break;
                         }
-                        newKey -= 94;
                     }
                 }
             } else {
