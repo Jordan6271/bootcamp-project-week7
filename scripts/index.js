@@ -23,14 +23,12 @@ function encrypt() {
                         encryptedMessage += String.fromCharCode(Number(ascii) + Number(key));
                     } else {
                         let newKey = key;
-                        console.log(`The key initially was ${key}`)
                         for (j = 0; j < key; j++) {
                             if (Number(ascii) + Number(newKey) <= 126) {
                                 encryptedMessage += String.fromCharCode(Number(ascii) + Number(newKey));
                                 break;
                             }
                             newKey -= 94;
-                            console.log(`The new key is ${newKey}`)
                         }
                     }
                 } else {
@@ -64,19 +62,21 @@ function decrypt() {
             let ascii = code[i].charCodeAt();
             key = document.getElementById(`key`).value;
             if (ascii >= 33 && ascii <= 126) {
-                if ((Number(ascii) - Number(key)) >= 33) {
+                if ((Number(ascii) + Number(key)) <= 126) {
+                    decryptedMessage += String.fromCharCode(Number(ascii) + Number(key));
                 } else {
+                    let newKey = key;
                     for (j = 0; j < key; j++) {
-                        if (Number(ascii) - Number(key) >= 33) {
+                        if (Number(ascii) + Number(newKey) <= 126) {
+                            decryptedMessage += String.fromCharCode(Number(ascii) + Number(newKey));
                             break;
                         }
-                        key -= 94; 
+                        newKey -= 94;
                     }
                 }
-                decryptedMessage += String.fromCharCode(Number(ascii) - Number(key));
             } else {
                 decryptedMessage += code[i];
-            }
+            }      
         }
         document.getElementById(`intro-area`).className = document.getElementById(`intro-area`).className.replace(/\bd-block\b/g, `d-none`);
         document.getElementById(`input-area`).className = document.getElementById(`input-area`).className.replace(/\bd-block\b/g, `d-none`);
